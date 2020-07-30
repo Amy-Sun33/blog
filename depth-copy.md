@@ -69,14 +69,32 @@ ES6 中引入了 `Object.assign()` 和 `...` 展开运算符能实现对对象�
 
 `Object.assign()`
 ```markdown
-  jkd
+  const obj1 = {a: {b:1}, c: 2}
+  const obj2 = Object.assign({}, obj1)
+
+  obj1.a.b = 2
+  obj1.c = 3
+
+  console.log(obj2)  // { a: { b: 2 }, c: 2 }
 ```
+**结论**：`Object.assign()` 属于浅拷贝，拷贝的是引用。
 
 `... 展开运算符`
 ```markdown
-  const originArr = [1,2,3,4,[5,6,7]]
-  
+  const originArray = [1,2,3,4,5,[6,7,8]];
+  const originObj = {a:1,b:{bb:1}};
+
+  const cloneArray = [...originArray];
+  cloneArray[0] = 0;
+  cloneArray[5].push(9);
+  console.log(originArray); // [1,2,3,4,5,[6,7,8,9]]
+
+  const cloneObj = {...originObj};
+  cloneObj.a = 2;
+  cloneObj.b.bb = 2;
+  console.log(originObj); // {a:1,b:{bb:2}}
 ```
+**结论**：`...` 属于浅拷贝，拷贝的是引用。
 
 #### 总结
 1. 赋值运算符 `=` 实现的是浅拷贝，只拷贝对象的引用值
