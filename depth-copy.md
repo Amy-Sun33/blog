@@ -34,15 +34,26 @@
     1. 在对象中遇到 `undefined`、`function(){}`、`symbol` 会被自动忽略
      2. 在数组中遇到 `undefined`、`function(){}`、`symbol` 会返回null （以保证数组单元位置不变）
      3. 包含循环引用的对象执行`JSON.stringfy()` 会出错
-    
-2. 利用递归实现重新创建对象并赋值
-
-```javascript
+ ```javascript
   JSON.parse(JSON.stringify({a:2, b:function(){}, c: undefined})) // {a:2}
   JSON.parse(JSON.stringify([1, undefined, function(){}, 4]))  // [1, null, null, 4]
+ ```
+    
+2. 函数库lodash的`_.cloneDeep`方法
+```javascript
+  var _ = require('lodash');
+  var obj1 = {
+      a: 1,
+      b: { f: { g: 1 } },
+      c: [1, 2, 3]
+  };
+  var obj2 = _.cloneDeep(obj1);
+  console.log(obj1.b.f === obj2.b.f);// false
 ```
 
-### 拷贝的方法
+3. 手写递归方法
+
+### 浅拷贝的方法
 数组有两个方法 `concat` 和 `slice` 实现对原数组的拷贝，并不会修改原数组，返回修改后的新数组 <br/>
 ES6 中引入了 `Object.assign()` 和 `...` 展开运算符能实现对对象的拷贝
 
@@ -78,6 +89,18 @@ ES6 中引入了 `Object.assign()` 和 `...` 展开运算符能实现对对象�
   console.log(obj2)  // { a: { b: 2 }, c: 2 }
 ```
 **结论**：`Object.assign()` 属于浅拷贝，拷贝的是引用。
+
+`函数库lodash的_.clone方法`
+```javascript
+  let _ = require('lodash')
+  var obj1 = {
+    a: 1,
+    b: { f: { g: 1 } },
+    c: [1, 2, 3]
+  };
+  var obj2 = _.clone(obj1);
+  console.log(obj1.b.f === obj2.b.f);// true
+```
 
 `... 展开运算符`
 ```javascript
