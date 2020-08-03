@@ -4,7 +4,7 @@
 
 浅拷贝的意思只复制引用，而未复制真正的值。
 
-```markdown
+```javascript
   const originArr = [1,2,3,4,5];
   const originObj = {a:'a',b:[1,2,3]};
 
@@ -37,7 +37,7 @@
     
 2. 利用递归实现重新创建对象并赋值
 
-```markdown
+```javascript
   JSON.parse(JSON.stringify({a:2, b:function(){}, c: undefined})) // {a:2}
   JSON.parse(JSON.stringify([1, undefined, function(){}, 4]))  // [1, null, null, 4]
 ```
@@ -47,7 +47,7 @@
 ES6 中引入了 `Object.assign()` 和 `...` 展开运算符能实现对对象的拷贝
 
 `concat`
-```markdown
+```javascript
   const originArr = [1,2,3,4,5];
   const cloneArr = originArr.concat();
   
@@ -57,7 +57,7 @@ ES6 中引入了 `Object.assign()` 和 `...` 展开运算符能实现对对象�
 ```
 看上去是深拷贝。
 如果这个对象是多层的？会怎样？
-```markdown
+```javascript
   const originArr = [1,[1,2,3],{a:1}];
   const cloneArr = originArr.concat();
   console.log(originArr === cloneArr);  // false
@@ -68,7 +68,7 @@ ES6 中引入了 `Object.assign()` 和 `...` 展开运算符能实现对对象�
 **结论**：`concat`、`slice(begin [,end])` 只能对数组进行第一层深拷贝
 
 `Object.assign()`
-```markdown
+```javascript
   const obj1 = {a: {b:1}, c: 2}
   const obj2 = Object.assign({}, obj1)
 
@@ -80,7 +80,7 @@ ES6 中引入了 `Object.assign()` 和 `...` 展开运算符能实现对对象�
 **结论**：`Object.assign()` 属于浅拷贝，拷贝的是引用。
 
 `... 展开运算符`
-```markdown
+```javascript
   const originArray = [1,2,3,4,5,[6,7,8]];
   const originObj = {a:1,b:{bb:1}};
 
